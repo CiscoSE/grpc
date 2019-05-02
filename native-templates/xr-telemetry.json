@@ -1,0 +1,63 @@
+{ "Cisco-IOS-XR-telemetry-model-driven-cfg:telemetry-model-driven": {
+   "sensor-groups": {
+    "sensor-group": [
+     {
+      "sensor-group-identifier": "{{.SensorGroupID}}",
+      
+      "sensor-paths": {
+       "sensor-path": [
+        {
+         "telemetry-sensor-path": "{{.Path}}"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   
+  "destination-groups": {
+    "destination-group": [
+      {
+        "destination-id":"collector",
+        "ipv4-destinations":{
+          "ipv4-destination":
+          [
+            {
+              "ipv4-address":"{{.CollectorIpv4}}",
+              "destination-port":{{.CollectorPort}},
+              "encoding": "self-describing-gpb",
+              "protocol":{
+                "protocol":"grpc",
+                "no-tls":"1"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+,
+
+   "subscriptions": {
+     "subscription": [
+      {
+       "subscription-identifier": "{{.SubscriptionID}}",
+       "sensor-profiles": {
+        "sensor-profile": [
+         {
+          "sensorgroupid": "{{.SensorGroupID}}",
+          "sample-interval": {{.SampleInterval}}
+         }
+        ]
+       },
+       "destination-profiles":{
+        "destination-profile":[
+          {"destination-id":"collector"}
+        ]
+       }
+      }
+     ]
+    
+   }
+  }
+}
